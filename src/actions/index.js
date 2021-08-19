@@ -1,4 +1,4 @@
-import { MENU_LOADED } from "./type"
+import { MENU_LOADED, MENU_REQUESTED , MENU_ERROR} from "./type"
 
 const menuLoaded = (newMenu) => {
     return {
@@ -7,4 +7,16 @@ const menuLoaded = (newMenu) => {
     };
 };
 
-export {menuLoaded};
+const menuRequested = () => {
+    return {
+        type: MENU_REQUESTED
+    };
+};
+
+const menuError = () => {
+    return {
+        type: MENU_ERROR
+    };
+};
+
+export {menuLoaded, menuRequested, menuError};
