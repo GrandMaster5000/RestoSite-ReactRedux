@@ -46,4 +46,11 @@
         border: 1px solid #fff;
         cursor: pointer;
     }
+    &__counter {
+        position: absolute;
+        font-weight: 300;
+        left: 550px;
+        color: #ffffff;
+        font-size: 20px;
+    }
 }

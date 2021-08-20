@@ -10,7 +10,7 @@ const CartTable = ({items, deleteFromCard, decPrice}) => {
             <div className="cart__list">
                 {
                     items.map(item => {
-                        const {title, price, url, id} = item;
+                        const {title, price, url, id, counter} = item;
 
                         return (
                             <div key={`${id}${Date.now().toString()}${Math.random() * 10}`} className="cart__item">
@@ -21,6 +21,7 @@ const CartTable = ({items, deleteFromCard, decPrice}) => {
                                 decPrice(price);
                                 deleteFromCard(id)
                                 }} className="cart__close">&times;</div>
+                                <div className="cart__counter">Amount: {counter}</div>
                             </div>
                         )
                     })

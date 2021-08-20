@@ -38,8 +38,21 @@ const reducer = (state = initState, action) => {
                 title: item.title,
                 price: item.price,
                 url: item.url,
-                id: item.id
+                id: item.id,
+                counter: 1
             }
+            const repeatIndex = state.items.findIndex(item => newItem.id === item.id);
+            if(repeatIndex >= 0) {
+                const counter = state.items[repeatIndex].counter + 1;
+                return {
+                    ...state,
+                    items: [
+                        ...state.items.slice(0, repeatIndex),
+                        {...state.items[repeatIndex], counter: counter}
+                    ]
+                }
+            }
+            
             return {
                 ...state,
                 items: [
@@ -50,6 +63,17 @@ const reducer = (state = initState, action) => {
         case ITEM_DELETE_FROM_CARD:
             const idx = action.payload,
             itemIndex = state.items.findIndex(item => item.id === idx);
+            if(state.items[itemIndex].counter > 1) {
+                const counter = state.items[itemIndex].counter - 1;
+                return {
+                    ...state,
+                    items: [
+                        ...state.items.slice(0, itemIndex),
+                        {...state.items[itemIndex], counter: counter},
+                        ...state.items.slice(itemIndex + 1)
+                    ]
+                }
+            }
             return {
                 ...state,
                 items: [
@@ -60,7 +84,7 @@ const reducer = (state = initState, action) => {
         case SUM_PRICE:
             let sum = 0;
             state.items.forEach(item => {
-                sum += item.price;
+                sum += (item.counter * item.price);
             })
             return {
                 ...state,
